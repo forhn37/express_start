@@ -1,6 +1,13 @@
 const express =require('express');
+const expressHandlebars = require('express-handlebars')
 const app = express();
 const port = process.env.PORT || 3000;
+
+// 핸들바 뷰 엔진 설정
+app.engine('handlebars', expressHandlebars({
+  defaultLayout: 'main',
+}))
+app.set('view engine', 'handlebars')
 
 app.get('/', (req, res) => {
   res.type('text/plain')
@@ -33,4 +40,5 @@ app.listen(port, () => {console.log(
 )
 })
 
-// 미들웨어등록 app.use
+// 미들웨어등록시 app.use를 하면 모든 곳에 적용된다. 
+// 그래서 미들웨어가 위에서 모든 엔드포인트를 적용하면 뒤에있는 엔드포인트에 적용이 안된다. 주의!!
