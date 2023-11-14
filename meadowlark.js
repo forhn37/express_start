@@ -5,33 +5,29 @@ const port = process.env.PORT || 3000;
 
 // 핸들바 뷰 엔진 설정
 app.engine('handlebars', expressHandlebars({
-  defaultLayout: 'main',
+  deafultLayout: 'main',
 }))
 app.set('view engine', 'handlebars')
 
 app.get('/', (req, res) => {
-  res.type('text/plain')
-  res.send('Meadowlark Travel');
+  res.render('home')
 })
 
 app.get('/about', (req, res) => {
-  res.type('text/plain')
-  res.send('About Meadowlark Travel')
+  res.render("about")
 })
 
 // custom 404 page
 app.use((req,res) => {
-  res.type('text/plain')
   res.status(404)
-  res.send('404 - Not Found')
+  res.render('404')
 })
 
 // custom 500 page
 app.use((err,req,res,next) => {
   console.error(err.message)
-  res.type('text/plain')
   res.status(500)
-  res.send('500 - Server Error')
+  res.render('500')
 })
 
 app.listen(port, () => {console.log(
