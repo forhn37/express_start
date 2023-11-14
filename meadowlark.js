@@ -3,6 +3,9 @@ const expressHandlebars = require('express-handlebars')
 const app = express();
 const port = process.env.PORT || 3000;
 
+// public 폴더 정적 처리
+app.use(express.static(__dirname + '/public'))
+
 // 핸들바 뷰 엔진 설정
 app.engine('handlebars', expressHandlebars({
   deafultLayout: 'main',
