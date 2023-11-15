@@ -1,6 +1,7 @@
 const express =require('express');
 const expressHandlebars = require('express-handlebars')
 const app = express();
+const fortune =require('./lib/fortune')
 const port = process.env.PORT || 3000;
 
 // public 폴더 정적 처리
@@ -13,16 +14,12 @@ app.engine('handlebars', expressHandlebars({
 app.set('view engine', 'handlebars')
 
 
-// 포춘쿠키 추가
-const fortunes = [
-  "Conquer your fears or they will conquer you.",
-  "Rivers need springs.",
-  "Do not fear what you don't know",
-  "You will have a pleasant surprise.",
-  "Whenever possible, keep it simple.",
-]
 app.get('/', (req, res) => {
   res.render('home')
+})
+
+app.get('/about', (req,res) => {
+  res.render('about', { fortune :fortune.getFortune()})
 })
 
 
