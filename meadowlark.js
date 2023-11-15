@@ -13,7 +13,7 @@ app.engine('handlebars', expressHandlebars({
 }))
 app.set('view engine', 'handlebars')
 
-
+// home, about 렌더링 설정
 app.get('/', (req, res) => {
   res.render('home')
 })
@@ -21,8 +21,6 @@ app.get('/', (req, res) => {
 app.get('/about', (req,res) => {
   res.render('about', { fortune :fortune.getFortune()})
 })
-
-
 
 // custom 404 page
 app.use((req,res) => {
