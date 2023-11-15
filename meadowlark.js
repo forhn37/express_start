@@ -25,10 +25,7 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
-app.get('/about', (req, res) => {
-  const randomFourtune = fortunes[Math.floor(Math.random()*fortunes.length)]
-  res.render("about", {fortune:randomFourtune})
-})
+
 
 // custom 404 page
 app.use((req,res) => {
