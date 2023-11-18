@@ -4,10 +4,13 @@ const app = express();
 const handlers = require('./lib/handlers')
 const fortune =require('./lib/fortune')
 const port = process.env.PORT || 3000;
+const bodyParser = require('body-parser')
+
 
 // public 폴더 정적 처리
 app.use(express.static(__dirname + '/public'))
 
+app.use(bodyParser.urlencoded({extended:false}))
 // 핸들바 뷰 엔진 설정
 app.engine('handlebars', expressHandlebars({
   deafultLayout: 'main',
@@ -18,6 +21,20 @@ app.set('view engine', 'handlebars')
 app.get('/', handlers.home)
 
 app.get('/about', handlers.about)
+
+app.get('/headers', (req, res) => {
+  res.type('text/plain')
+  const headers = Object.entries(req.headers)
+  .map(([key,value]) => `${key}:${value}`)
+  res.send(headers.join('\n'))
+})
+
+app.post('/process-contact', (req,res) => {
+  console.log(`received contact from ${req.body.name}<${req.body.email}`)
+  res.redirect(303, '10-thank-you')
+})
+
+app.disable('x-powered-by')
 
 // custom 404 page
 app.use(handlers.notFound)
