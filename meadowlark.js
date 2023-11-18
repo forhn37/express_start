@@ -25,11 +25,15 @@ app.use(handlers.notFound)
 // custom 500 page
 app.use(handlers.serverError)
 
-app.listen(port, () => {console.log(
-  `Express Started on http://localhost:${port}; ` +
-  `press Ctrl-C to terminate.`
-)
-})
+
+if(require.main === module) {
+  app.listen(port, () => {
+    console.log(`Express Started on http://localhost:${port}; ` +
+    `press Ctrl-C to terminate.`)
+  })
+} else {
+  module.exports = app
+}
 
 
 // 미들웨어등록시 app.use를 하면 모든 곳에 적용된다. 
